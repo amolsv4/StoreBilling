@@ -1,0 +1,21 @@
+<app-page-header title="Customers" subtitle="Customers belonging to an organization, with loyalty and credit tracking.">
+  <button mat-flat-button color="primary" *ngIf="authService.hasPermission('CUSTOMER_CREATE')" (click)="openCreate()">
+    <mat-icon>add</mat-icon>
+    Add Customer
+  </button>
+</app-page-header>
+
+<app-data-table
+  [columns]="columns"
+  [data]="customers()"
+  [totalElements]="totalElements()"
+  [pageIndex]="pageIndex"
+  [pageSize]="pageSize"
+  [loading]="loading()"
+  [editDisabled]="!authService.hasPermission('CUSTOMER_UPDATE')"
+  [toggleDisabled]="!authService.hasPermission('CUSTOMER_UPDATE')"
+  emptyMessage="No customers found."
+  (page)="onPage($event)"
+  (edit)="openEdit($event)"
+  (toggleActive)="onToggleActive($event)"
+></app-data-table>

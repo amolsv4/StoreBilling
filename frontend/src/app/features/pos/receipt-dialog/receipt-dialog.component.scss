@@ -1,0 +1,40 @@
+.receipt-lines {
+  margin-bottom: 12px;
+}
+
+.receipt-line-row {
+  display: grid;
+  grid-template-columns: 1fr 80px 90px;
+  gap: 8px;
+  padding: 4px 0;
+  font-size: 14px;
+}
+
+.receipt-line-header {
+  font-weight: 600;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.receipt-totals-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0;
+}
+
+.receipt-totals-highlight {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.receipt-notify-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.receipt-notify-label {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.6);
+}

@@ -1,0 +1,31 @@
+.payment-summary {
+  margin-bottom: 12px;
+}
+
+.payment-summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+}
+
+.payment-summary-highlight {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.payment-list {
+  max-height: 140px;
+  overflow-y: auto;
+  margin-bottom: 12px;
+}
+
+.payment-tender-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.payment-tender-form mat-form-field {
+  flex: 1 1 140px;
+}

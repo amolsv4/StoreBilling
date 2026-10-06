@@ -1,0 +1,39 @@
+<div class="session-picker-container">
+  <mat-card class="session-picker-card">
+    <mat-card-header>
+      <mat-card-title>Start POS Session</mat-card-title>
+      <mat-card-subtitle>Pick the store and terminal for this shift.</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-form-field appearance="outline" class="session-picker-field">
+        <mat-label>Store</mat-label>
+        <mat-select [(ngModel)]="selectedStoreId" (selectionChange)="onStoreChange($event.value)" [disabled]="loadingStores()">
+          <mat-option *ngFor="let store of stores()" [value]="store.id">{{ store.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <p *ngIf="!loadingStores() && stores().length === 0" class="inline-error">
+        No store is available to your account. Contact an administrator.
+      </p>
+
+      <mat-form-field appearance="outline" class="session-picker-field" *ngIf="selectedStoreId">
+        <mat-label>Terminal</mat-label>
+        <mat-select [(ngModel)]="selectedTerminalId" [disabled]="loadingTerminals()">
+          <mat-option *ngFor="let terminal of terminals()" [value]="terminal.id">{{ terminal.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <p *ngIf="selectedStoreId && !loadingTerminals() && terminals().length === 0" class="inline-error">
+        No active terminal is configured for this store.
+      </p>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button mat-flat-button color="primary" [disabled]="!selectedStoreId || !selectedTerminalId" (click)="startSession()">
+        <mat-icon>play_arrow</mat-icon>
+        Start Session
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

@@ -1,0 +1,104 @@
+# StoreBilling backend - base configuration.
+#
+# Flyway / seed-data note (read this before wondering why demo data is/isn't present):
+#   - V1-V5 (schema only) live in classpath:db/migration and are ALWAYS applied, in every profile.
+#   - V6-V8 (reference/demo/seed data - business types, roles, permissions, the demo org/store/
+#     terminal hierarchy, and sample app_configuration rows) live in a SEPARATE folder,
+#     classpath:db/seed-dev, which is only added to spring.flyway.locations by the "local"
+#     profile block below (spring.config.activate.on-profile: local). A bare run with no active
+#     profile (or any profile other than "local", e.g. a future "prod") only ever scans
+#     classpath:db/migration and therefore NEVER applies seed data.
+#   - This profile-specific override lives inline in this file (not in application-local.yml)
+#     precisely because application-local.yml is gitignored/optional (see
+#     application-local.yml.example) - seeding must not silently depend on a developer having
+#     copied that template.
+spring:
+  application:
+    name: storebilling-service
+  profiles:
+    active: local
+  datasource:
+    url: jdbc:mysql://localhost:3306/storebilling?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    # username: Amol
+    # password: etp@1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: false
+        jdbc:
+          time_zone: UTC
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: false
+  cache:
+    # Actual CacheManager bean is defined explicitly in common.config.CacheConfig
+    # (ConcurrentMapCacheManager) - no external cache store needed for Phase 1.
+    type: simple
+  jackson:
+    # Spring Boot 4's default Jackson 3 stack moved "write dates as timestamps" off
+    # SerializationFeature onto the dedicated DateTimeFeature enum (see JacksonConfig.java,
+    # which also disables this in Java for defense-in-depth).
+    datatype:
+      datetime:
+        write-dates-as-timestamps: false
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: when-authorized
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+
+# JWT secret/expiration come ONLY from environment variables - never a literal value here and
+# never a fallback default that looks like a real secret.
+jwt:
+  secret: ${JWT_SECRET}
+  # secret: k7Qw9pXz2VmR8tYb4Ln6JsFh1CdGe3Wa5UoIi0MkTr7NyZq8XvBc2PfDs4Hg6Le
+  expiration-ms: ${JWT_EXPIRATION_MS:1800000}
+  issuer: storebilling
+
+logging:
+  level:
+    root: INFO
+    com.retailpos: INFO
+  # Writes every log line (same content as the console) to logs/StoreBillingService.log,
+  # relative to the working directory the app is started from (storebilling-service/ when run
+  # via `mvn spring-boot:run` from that folder). Spring Boot's default Logback config applies a
+  # 10MB rolling-file policy automatically once logging.file.name is set - no custom logback.xml
+  # needed for this.
+  file:
+    name: logs/StoreBillingService.log
+
+---
+# "local" profile (active by default - see spring.profiles.active above): adds the dev/seed-data
+# Flyway location so a fresh local database gets the demo org/store/terminal/config rows.
+spring:
+  config:
+    activate:
+      on-profile: local
+  flyway:
+    locations: classpath:db/migration,classpath:db/seed-dev
+
+logging:
+  level:
+    com.retailpos: DEBUG

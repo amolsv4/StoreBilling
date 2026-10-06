@@ -1,0 +1,98 @@
+<app-page-header
+  title="Purchase Receipt"
+  [subtitle]="isCreateMode() ? 'Create a new purchase receipt, then add lines.' : (receipt()?.receiptNumber ?? 'Loading...')"
+></app-page-header>
+
+<mat-card class="pr-card" *ngIf="isCreateMode()">
+  <form [formGroup]="headerForm" (ngSubmit)="createHeader()" class="form-grid">
+    <mat-form-field appearance="outline">
+      <mat-label>Store</mat-label>
+      <mat-select formControlName="storeId">
+        <mat-option *ngFor="let store of stores()" [value]="store.id">{{ store.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Supplier Name</mat-label>
+      <input matInput formControlName="supplierName" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Receipt Date</mat-label>
+      <input matInput type="date" formControlName="receiptDate" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Receipt Number</mat-label>
+      <input matInput formControlName="receiptNumber" maxlength="30" />
+    </mat-form-field>
+
+    <div class="full-span">
+      <button mat-flat-button color="primary" type="submit" [disabled]="submitting()">Create Receipt</button>
+    </div>
+  </form>
+</mat-card>
+
+<div *ngIf="!isCreateMode()">
+  <ng-container *ngIf="receipt() as r">
+    <mat-card class="pr-card">
+      <div class="pr-status-row">
+        <span class="pr-status-badge">{{ r.status }}</span>
+        <span>Total: {{ r.totalAmount.toFixed(2) }}</span>
+      </div>
+
+      <form [formGroup]="headerForm" (ngSubmit)="saveHeader()" class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Store</mat-label>
+          <mat-select formControlName="storeId">
+            <mat-option *ngFor="let store of stores()" [value]="store.id">{{ store.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Supplier Name</mat-label>
+          <input matInput formControlName="supplierName" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Receipt Date</mat-label>
+          <input matInput type="date" formControlName="receiptDate" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Receipt Number</mat-label>
+          <input matInput formControlName="receiptNumber" maxlength="30" />
+        </mat-form-field>
+
+        <div class="full-span" *ngIf="r.status === 'DRAFT' && authService.hasPermission('PURCHASE_UPDATE')">
+          <button mat-stroked-button type="submit" [disabled]="submitting()">Save Header</button>
+        </div>
+      </form>
+    </mat-card>
+
+    <mat-card class="pr-card">
+      <h2>Lines</h2>
+      <app-product-search
+        *ngIf="canAddLine()"
+        [organizationId]="organizationId()"
+        (productSelected)="addLine($event)"
+      ></app-product-search>
+
+      <app-line-items-editor
+        [columns]="lineColumns()"
+        [rows]="r.lines"
+        [disabled]="linesDisabled()"
+        emptyMessage="No lines added yet."
+        (cellChange)="onCellChange($event)"
+        (remove)="removeLine($event)"
+      ></app-line-items-editor>
+
+      <div class="pr-actions" *ngIf="r.status === 'DRAFT' && authService.hasPermission('PURCHASE_RECEIVE')">
+        <button mat-flat-button color="primary" [disabled]="busy() || r.lines.length === 0" (click)="receive()">
+          <mat-icon>inventory</mat-icon>
+          Receive
+        </button>
+      </div>
+    </mat-card>
+  </ng-container>
+</div>

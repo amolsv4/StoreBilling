@@ -1,0 +1,31 @@
+.data-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+}
+
+.no-data-cell {
+  text-align: center;
+  padding: 24px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.bool-chip {
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.bool-chip-yes {
+  background: #e3f2e6;
+  color: #1e7e34;
+}
+
+.bool-chip-no {
+  background: #f1f1f1;
+  color: #616161;
+}

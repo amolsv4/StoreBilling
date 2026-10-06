@@ -1,0 +1,26 @@
+<app-page-header title="Organizations" subtitle="Tenant organizations onboarded onto StoreBilling.">
+  <button
+    mat-flat-button
+    color="primary"
+    *ngIf="authService.hasPermission('ORGANIZATION_CREATE')"
+    (click)="openCreate()"
+  >
+    <mat-icon>add</mat-icon>
+    Add Organization
+  </button>
+</app-page-header>
+
+<app-data-table
+  [columns]="columns"
+  [data]="organizations()"
+  [totalElements]="totalElements()"
+  [pageIndex]="pageIndex"
+  [pageSize]="pageSize"
+  [loading]="loading()"
+  [editDisabled]="!authService.hasPermission('ORGANIZATION_UPDATE')"
+  [toggleDisabled]="!authService.hasPermission('ORGANIZATION_UPDATE')"
+  emptyMessage="No organizations found."
+  (page)="onPage($event)"
+  (edit)="openEdit($event)"
+  (toggleActive)="onToggleActive($event)"
+></app-data-table>

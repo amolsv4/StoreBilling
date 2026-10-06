@@ -1,0 +1,31 @@
+# Secrets / local env — never commit real values
+.env
+storebilling-service/src/main/resources/application-local.yml
+*.pem
+*.key
+*credentials*
+*secret*
+
+# Java / Maven
+storebilling-service/target/
+*.class
+*.jar
+!.mvn/wrapper/maven-wrapper.jar
+
+# Node / Angular
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+npm-debug.log*
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

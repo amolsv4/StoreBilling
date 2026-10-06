@@ -1,0 +1,22 @@
+.line-items-editor-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.line-items-table {
+  width: 100%;
+}
+
+.line-items-cell-input {
+  width: 90px;
+  padding: 6px 8px;
+  border: 1px solid rgba(0, 0, 0, 0.24);
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.no-data-cell {
+  text-align: center;
+  padding: 24px 0;
+  color: rgba(0, 0, 0, 0.54);
+}

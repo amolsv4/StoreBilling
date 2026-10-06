@@ -1,0 +1,32 @@
+<app-page-header title="Inventory" subtitle="Current stock balances by product and store."></app-page-header>
+
+<form [formGroup]="filterForm" (ngSubmit)="applyFilters()" class="filter-bar">
+  <mat-form-field appearance="outline">
+    <mat-label>Store</mat-label>
+    <mat-select formControlName="storeId">
+      <mat-option value="">Any</mat-option>
+      <mat-option *ngFor="let store of stores()" [value]="store.id">{{ store.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Product Id</mat-label>
+    <input matInput formControlName="productId" type="number" />
+  </mat-form-field>
+
+  <button mat-flat-button color="primary" type="submit">Search</button>
+  <button mat-button type="button" (click)="resetFilters()">Reset</button>
+</form>
+
+<app-data-table
+  [columns]="columns"
+  [data]="balances()"
+  [totalElements]="totalElements()"
+  [pageIndex]="pageIndex"
+  [pageSize]="pageSize"
+  [loading]="loading()"
+  [showEdit]="false"
+  [showActiveToggle]="false"
+  emptyMessage="No stock balances found."
+  (page)="onPage($event)"
+></app-data-table>

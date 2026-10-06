@@ -1,0 +1,42 @@
+<h2 mat-dialog-title>Add Stock Adjustment</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <mat-dialog-content class="form-grid">
+    <mat-form-field appearance="outline">
+      <mat-label>Store</mat-label>
+      <mat-select formControlName="storeId">
+        <mat-option *ngFor="let store of stores()" [value]="store.id">{{ store.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Adjustment Type</mat-label>
+      <mat-select formControlName="adjustmentType">
+        <mat-option *ngFor="let type of adjustmentTypes" [value]="type">{{ type }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="full-span">
+      <app-product-search
+        [organizationId]="organizationId"
+        (productSelected)="onProductSelected($event)"
+      ></app-product-search>
+      <p *ngIf="selectedProduct()">Selected: {{ selectedProduct()!.sku }} - {{ selectedProduct()!.name }}</p>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Quantity Change</mat-label>
+      <input matInput type="number" step="0.001" formControlName="quantityChange" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-span">
+      <mat-label>Reason</mat-label>
+      <input matInput formControlName="reason" />
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="cancel()">Cancel</button>
+    <button mat-flat-button color="primary" type="submit" [disabled]="submitting() || !selectedProduct()">Save</button>
+  </mat-dialog-actions>
+</form>

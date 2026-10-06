@@ -1,0 +1,58 @@
+<div class="data-table-wrapper">
+  <table mat-table [dataSource]="data" class="mat-elevation-z1 data-table">
+    <ng-container *ngFor="let column of columns" [matColumnDef]="column.key">
+      <th mat-header-cell *matHeaderCellDef>{{ column.header }}</th>
+      <td mat-cell *matCellDef="let row">
+        <ng-container *ngIf="column.isBoolean; else plainCell">
+          <span
+            class="bool-chip"
+            [class.bool-chip-yes]="boolValue(column, row)"
+            [class.bool-chip-no]="!boolValue(column, row)"
+          >
+            {{ boolValue(column, row) ? 'Yes' : 'No' }}
+          </span>
+        </ng-container>
+        <ng-template #plainCell>{{ cellValue(column, row) }}</ng-template>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="active">
+      <th mat-header-cell *matHeaderCellDef>Active</th>
+      <td mat-cell *matCellDef="let row">
+        <mat-slide-toggle
+          [checked]="isRowActive(row)"
+          [disabled]="toggleDisabled"
+          matTooltip="Toggle active status (soft deactivate/reactivate)"
+          (change)="onToggleActive(row, $event)"
+        ></mat-slide-toggle>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-icon-button [disabled]="editDisabled" [matTooltip]="editLabel" (click)="onEdit(row)">
+          <mat-icon>{{ editIcon }}</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell no-data-cell" [attr.colspan]="displayedColumns.length">
+        {{ loading ? 'Loading...' : emptyMessage }}
+      </td>
+    </tr>
+  </table>
+
+  <mat-paginator
+    [length]="totalElements"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex"
+    [pageSizeOptions]="pageSizeOptions"
+    [disabled]="loading"
+    (page)="onPage($event)"
+  ></mat-paginator>
+</div>

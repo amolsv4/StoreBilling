@@ -1,0 +1,253 @@
+$brand-dark: #0b2a5b;
+$brand-mid: #0d47a1;
+$brand-light: #1976d2;
+
+.login-shell {
+  display: flex;
+  min-height: 100vh;
+  background: #ffffff;
+}
+
+/* ---------- left: brand + illustration ---------- */
+.login-hero {
+  position: relative;
+  flex: 1 1 56%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 40px clamp(32px, 5vw, 72px);
+  color: #ffffff;
+  overflow: hidden;
+  background:
+    radial-gradient(900px 500px at 85% 0%, rgba(79, 195, 247, 0.28), transparent 60%),
+    linear-gradient(140deg, $brand-dark 0%, $brand-mid 55%, $brand-light 100%);
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    pointer-events: none;
+  }
+
+  &::before {
+    width: 420px;
+    height: 420px;
+    left: -140px;
+    bottom: -160px;
+  }
+
+  &::after {
+    width: 260px;
+    height: 260px;
+    right: -80px;
+    top: 38%;
+  }
+}
+
+.hero-brand,
+.hero-art,
+.hero-copy {
+  position: relative;
+  z-index: 1;
+}
+
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+
+  mat-icon {
+    color: #ffffff;
+  }
+}
+
+.hero-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-name {
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+.hero-art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  min-height: 0;
+
+  img {
+    display: block;
+    width: 100%;
+    max-width: 700px;
+    max-height: 56vh;
+    object-fit: contain;
+    filter: drop-shadow(0 24px 32px rgba(3, 18, 48, 0.35));
+  }
+}
+
+.hero-copy {
+  max-width: 560px;
+
+  h2 {
+    margin: 0 0 8px;
+    font-size: clamp(24px, 2.4vw, 34px);
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  p {
+    margin: 0 0 18px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.85);
+  }
+}
+
+.hero-points {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.92);
+
+  li {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  mat-icon {
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    color: #ffd54f;
+  }
+}
+
+/* ---------- right: sign-in form ---------- */
+.login-panel {
+  flex: 1 1 44%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px clamp(20px, 4vw, 56px);
+  background: #f7f9fc;
+}
+
+.login-box {
+  width: 100%;
+  max-width: 400px;
+
+  h1 {
+    margin: 0 0 6px;
+    font-size: 28px;
+    font-weight: 500;
+    color: #0d1b3a;
+  }
+}
+
+.login-brand-mobile {
+  display: none;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+
+  .brand-mark {
+    background: $brand-mid;
+    box-shadow: none;
+  }
+
+  .brand-name {
+    color: #0d1b3a;
+  }
+}
+
+.login-sub {
+  margin: 0 0 24px;
+  color: #546e7a;
+  font-size: 15px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.login-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: #fdecea;
+  color: #b71c1c;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 14px;
+
+  mat-icon {
+    flex: none;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+  }
+}
+
+.login-submit {
+  width: 100%;
+  height: 48px;
+  margin-top: 4px;
+  font-size: 16px;
+  letter-spacing: 0.3px;
+  border-radius: 10px;
+}
+
+.button-spinner {
+  display: inline-block;
+}
+
+.login-footer {
+  margin: 28px 0 0;
+  text-align: center;
+  font-size: 12px;
+  color: #90a4ae;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 960px) {
+  .login-hero {
+    display: none;
+  }
+
+  .login-panel {
+    background: linear-gradient(180deg, #e8f0fb 0%, #f7f9fc 40%);
+  }
+
+  .login-brand-mobile {
+    display: flex;
+  }
+}
+
+@media (max-height: 700px) and (min-width: 961px) {
+  .hero-points {
+    display: none;
+  }
+
+  .hero-art img {
+    max-height: 44vh;
+  }
+}

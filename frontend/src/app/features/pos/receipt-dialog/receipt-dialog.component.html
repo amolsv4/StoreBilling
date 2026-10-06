@@ -1,0 +1,64 @@
+<h2 mat-dialog-title>Receipt - {{ sale.invoiceNumber }}</h2>
+
+<mat-dialog-content>
+  <div class="receipt-lines">
+    <div class="receipt-line-row receipt-line-header">
+      <span>Item</span>
+      <span>Qty</span>
+      <span>Total</span>
+    </div>
+    <div class="receipt-line-row" *ngFor="let line of sale.lines">
+      <span>{{ line.sku }} - {{ line.productName }}</span>
+      <span>{{ line.quantity }} {{ line.uom }}</span>
+      <span>{{ line.lineTotal | currency: sale.currency }}</span>
+    </div>
+  </div>
+
+  <div class="receipt-totals">
+    <div class="receipt-totals-row">
+      <span>Subtotal</span>
+      <span>{{ sale.subtotal | currency: sale.currency }}</span>
+    </div>
+    <div class="receipt-totals-row">
+      <span>Discount</span>
+      <span>{{ sale.discountAmount | currency: sale.currency }}</span>
+    </div>
+    <div class="receipt-totals-row">
+      <span>Tax</span>
+      <span>{{ sale.taxAmount | currency: sale.currency }}</span>
+    </div>
+    <div class="receipt-totals-row receipt-totals-highlight">
+      <span>Total</span>
+      <span>{{ sale.totalAmount | currency: sale.currency }}</span>
+    </div>
+    <div class="receipt-totals-row">
+      <span>Paid</span>
+      <span>{{ complete.amountPaid | currency: sale.currency }}</span>
+    </div>
+    <div class="receipt-totals-row" *ngIf="complete.changeDue > 0">
+      <span>Change Due</span>
+      <span>{{ complete.changeDue | currency: sale.currency }}</span>
+    </div>
+  </div>
+
+  <div class="receipt-notify-row">
+    <span class="receipt-notify-label">Send receipt:</span>
+    <button
+      mat-stroked-button
+      *ngFor="let channel of notificationChannels"
+      [disabled]="sending() === channel"
+      (click)="send(channel)"
+    >
+      <mat-icon>{{ channel === 'EMAIL' ? 'email' : channel === 'SMS' ? 'sms' : 'chat' }}</mat-icon>
+      {{ channel }}
+    </button>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="print()">
+    <mat-icon>print</mat-icon>
+    Print
+  </button>
+  <button mat-flat-button color="primary" (click)="close()">Done</button>
+</mat-dialog-actions>

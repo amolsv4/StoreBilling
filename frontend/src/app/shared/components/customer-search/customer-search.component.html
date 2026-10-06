@@ -1,0 +1,28 @@
+<div class="customer-search-row">
+  <mat-form-field appearance="outline" class="customer-search-field">
+    <mat-label>Customer mobile</mat-label>
+    <mat-icon matPrefix>person_search</mat-icon>
+    <input
+      matInput
+      type="text"
+      [formControl]="mobileControl"
+      [matAutocomplete]="auto"
+      [disabled]="disabled"
+      placeholder="Search by mobile number"
+    />
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+      <mat-option *ngFor="let customer of matches()" [value]="customer">
+        {{ customer.name }} - {{ customer.mobile }}
+      </mat-option>
+      <mat-option *ngIf="!searching() && matches().length === 0" disabled>No matching customer</mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <span class="customer-search-selected" *ngIf="selectedCustomerName">{{ selectedCustomerName }}</span>
+  <span class="customer-search-selected" *ngIf="!selectedCustomerName">Walk-in customer</span>
+
+  <button mat-button type="button" [disabled]="disabled || !selectedCustomerName" (click)="clearToWalkIn()">
+    <mat-icon>person_off</mat-icon>
+    Walk-in
+  </button>
+</div>

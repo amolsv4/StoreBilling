@@ -1,0 +1,74 @@
+<h2 mat-dialog-title>{{ isEdit ? 'Edit Organization' : 'Add Organization' }}</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <mat-dialog-content class="form-grid">
+    <mat-form-field appearance="outline">
+      <mat-label>Code</mat-label>
+      <input matInput formControlName="code" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Legal Name</mat-label>
+      <input matInput formControlName="legalName" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Tax Registration No.</mat-label>
+      <input matInput formControlName="taxRegistrationNo" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Address Line 1</mat-label>
+      <input matInput formControlName="addressLine1" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Address Line 2</mat-label>
+      <input matInput formControlName="addressLine2" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>City</mat-label>
+      <input matInput formControlName="city" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>State</mat-label>
+      <input matInput formControlName="state" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Country</mat-label>
+      <input matInput formControlName="country" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Postal Code</mat-label>
+      <input matInput formControlName="postalCode" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Contact Email</mat-label>
+      <input matInput type="email" formControlName="contactEmail" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Contact Phone</mat-label>
+      <input matInput formControlName="contactPhone" />
+    </mat-form-field>
+
+    <div class="toggle-row" *ngIf="isEdit">
+      <mat-slide-toggle formControlName="active">Active</mat-slide-toggle>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="cancel()">Cancel</button>
+    <button mat-flat-button color="primary" type="submit" [disabled]="submitting()">Save</button>
+  </mat-dialog-actions>
+</form>

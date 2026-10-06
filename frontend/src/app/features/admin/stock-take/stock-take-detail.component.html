@@ -1,0 +1,95 @@
+<app-page-header
+  title="Stock Take"
+  [subtitle]="isCreateMode() ? 'Create a new stock take, then add lines.' : (stockTake()?.stockTakeNumber ?? 'Loading...')"
+></app-page-header>
+
+<mat-card class="stk-card" *ngIf="isCreateMode()">
+  <form [formGroup]="headerForm" (ngSubmit)="createHeader()" class="form-grid">
+    <mat-form-field appearance="outline">
+      <mat-label>Store</mat-label>
+      <mat-select formControlName="storeId">
+        <mat-option *ngFor="let store of stores()" [value]="store.id">{{ store.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Stock Take Date</mat-label>
+      <input matInput type="date" formControlName="stockTakeDate" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Stock Take Number</mat-label>
+      <input matInput formControlName="stockTakeNumber" maxlength="30" />
+    </mat-form-field>
+
+    <div class="full-span">
+      <button mat-flat-button color="primary" type="submit" [disabled]="submitting()">Create Stock Take</button>
+    </div>
+  </form>
+</mat-card>
+
+<div *ngIf="!isCreateMode()">
+  <ng-container *ngIf="stockTake() as s">
+    <mat-card class="stk-card">
+      <div class="stk-status-row">
+        <span class="stk-status-badge">{{ s.status }}</span>
+        <span>{{ s.storeName }}</span>
+      </div>
+
+      <form [formGroup]="headerForm" (ngSubmit)="saveHeader()" class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Store</mat-label>
+          <mat-select formControlName="storeId">
+            <mat-option *ngFor="let store of stores()" [value]="store.id">{{ store.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Stock Take Date</mat-label>
+          <input matInput type="date" formControlName="stockTakeDate" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Stock Take Number</mat-label>
+          <input matInput formControlName="stockTakeNumber" maxlength="30" />
+        </mat-form-field>
+
+        <div class="full-span" *ngIf="s.status === 'DRAFT' && authService.hasPermission('STOCK_TAKE_UPDATE')">
+          <button mat-stroked-button type="submit" [disabled]="submitting()">Save Header</button>
+        </div>
+      </form>
+    </mat-card>
+
+    <mat-card class="stk-card">
+      <h2>Lines</h2>
+      <div class="stk-add-line" *ngIf="canAddLine()">
+        <mat-form-field appearance="outline" class="stk-counted-field">
+          <mat-label>Counted quantity</mat-label>
+          <input matInput type="number" min="0" step="0.001" name="newLineCountedQuantity" [(ngModel)]="newLineCountedQuantity" />
+          <mat-hint>Enter the count, then pick the product.</mat-hint>
+        </mat-form-field>
+        <app-product-search
+          class="stk-product-search"
+          [organizationId]="organizationId()"
+          (productSelected)="addLine($event)"
+        ></app-product-search>
+      </div>
+
+      <app-line-items-editor
+        [columns]="lineColumns()"
+        [rows]="s.lines"
+        [disabled]="linesDisabled()"
+        emptyMessage="No lines added yet."
+        (cellChange)="onCellChange($event)"
+        (remove)="removeLine($event)"
+      ></app-line-items-editor>
+
+      <div class="stk-actions" *ngIf="s.status === 'DRAFT' && authService.hasPermission('STOCK_TAKE_COMPLETE')">
+        <button mat-flat-button color="primary" [disabled]="busy() || s.lines.length === 0" (click)="complete()">
+          <mat-icon>fact_check</mat-icon>
+          Complete Stock Take
+        </button>
+      </div>
+    </mat-card>
+  </ng-container>
+</div>

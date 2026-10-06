@@ -1,0 +1,17 @@
+.customer-search-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.customer-search-field {
+  flex: 1 1 260px;
+  min-width: 220px;
+}
+
+.customer-search-selected {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.6);
+  white-space: nowrap;
+}

@@ -1,0 +1,24 @@
+<app-page-header title="Stock Adjustments" subtitle="Manual corrections, damage, and expiry write-offs.">
+  <button
+    mat-flat-button
+    color="primary"
+    *ngIf="authService.hasPermission('INVENTORY_ADJUST')"
+    (click)="openCreate()"
+  >
+    <mat-icon>add</mat-icon>
+    Add Adjustment
+  </button>
+</app-page-header>
+
+<app-data-table
+  [columns]="columns"
+  [data]="adjustments()"
+  [totalElements]="totalElements()"
+  [pageIndex]="pageIndex"
+  [pageSize]="pageSize"
+  [loading]="loading()"
+  [showEdit]="false"
+  [showActiveToggle]="false"
+  emptyMessage="No stock adjustments found."
+  (page)="onPage($event)"
+></app-data-table>

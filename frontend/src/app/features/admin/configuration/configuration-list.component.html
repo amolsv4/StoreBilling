@@ -1,0 +1,49 @@
+<app-page-header title="Configurations" subtitle="Scoped key/value settings resolved by the configuration engine.">
+  <button
+    mat-flat-button
+    color="primary"
+    *ngIf="authService.hasPermission('CONFIGURATION_CREATE')"
+    (click)="openCreate()"
+  >
+    <mat-icon>add</mat-icon>
+    Add Configuration
+  </button>
+</app-page-header>
+
+<form [formGroup]="filterForm" (ngSubmit)="applyFilters()" class="filter-bar">
+  <mat-form-field appearance="outline">
+    <mat-label>Key</mat-label>
+    <input matInput formControlName="key" placeholder="e.g. receipt.footer" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Scope Type</mat-label>
+    <mat-select formControlName="scopeType">
+      <mat-option value="">Any</mat-option>
+      <mat-option *ngFor="let type of scopeTypes" [value]="type">{{ type }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Scope Id</mat-label>
+    <input matInput formControlName="scopeId" type="number" />
+  </mat-form-field>
+
+  <button mat-flat-button color="primary" type="submit">Search</button>
+  <button mat-button type="button" (click)="resetFilters()">Reset</button>
+</form>
+
+<app-data-table
+  [columns]="columns"
+  [data]="configurations()"
+  [totalElements]="totalElements()"
+  [pageIndex]="pageIndex"
+  [pageSize]="pageSize"
+  [loading]="loading()"
+  [editDisabled]="!authService.hasPermission('CONFIGURATION_UPDATE')"
+  [toggleDisabled]="!authService.hasPermission('CONFIGURATION_UPDATE')"
+  emptyMessage="No configurations found."
+  (page)="onPage($event)"
+  (edit)="openEdit($event)"
+  (toggleActive)="onToggleActive($event)"
+></app-data-table>

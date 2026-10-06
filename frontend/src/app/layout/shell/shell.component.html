@@ -1,0 +1,41 @@
+<mat-toolbar color="primary" class="shell-toolbar">
+  <button mat-icon-button (click)="sidenav.toggle()" aria-label="Toggle navigation">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span class="shell-title">StoreBilling</span>
+  <span class="shell-spacer"></span>
+  <button mat-button *ngIf="showPosButton()" routerLink="/pos">
+    <mat-icon>point_of_sale</mat-icon>
+    Go to POS
+  </button>
+  <button mat-button [matMenuTriggerFor]="userMenu">
+    <mat-icon>account_circle</mat-icon>
+    {{ displayName() }}
+  </button>
+  <mat-menu #userMenu="matMenu">
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
+
+<mat-sidenav-container class="shell-container">
+  <mat-sidenav #sidenav mode="side" [opened]="true" class="shell-sidenav">
+    <mat-nav-list>
+      <a
+        mat-list-item
+        *ngFor="let item of visibleNavItems()"
+        [routerLink]="item.path"
+        routerLinkActive="active-nav-item"
+      >
+        <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+        <span matListItemTitle>{{ item.label }}</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="shell-content">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

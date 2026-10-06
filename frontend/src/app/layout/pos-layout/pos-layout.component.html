@@ -1,0 +1,27 @@
+<mat-toolbar color="primary" class="pos-toolbar">
+  <mat-icon>point_of_sale</mat-icon>
+  <span class="pos-title">StoreBilling POS</span>
+
+  <span class="pos-session-info" *ngIf="session() as s">
+    {{ s.storeName }} &middot; {{ s.terminalName }}
+  </span>
+
+  <span class="pos-spacer"></span>
+
+  <button mat-button *ngIf="session()" (click)="switchTerminal()">
+    <mat-icon>swap_horiz</mat-icon>
+    Switch Terminal
+  </button>
+  <button mat-button (click)="backToAdmin()">
+    <mat-icon>arrow_back</mat-icon>
+    Back to Admin
+  </button>
+  <button mat-button (click)="logout()">
+    <mat-icon>logout</mat-icon>
+    Logout
+  </button>
+</mat-toolbar>
+
+<div class="pos-content">
+  <router-outlet></router-outlet>
+</div>

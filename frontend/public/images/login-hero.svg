@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 640" role="img" aria-label="Point-of-sale terminal with receipt, card reader and shopping basket">
+  <!-- soft backdrop shapes -->
+  <circle cx="400" cy="320" r="270" fill="#ffffff" opacity="0.07"/>
+  <circle cx="640" cy="120" r="95" fill="#ffffff" opacity="0.06"/>
+  <circle cx="130" cy="500" r="100" fill="#ffffff" opacity="0.06"/>
+  <ellipse cx="400" cy="578" rx="320" ry="22" fill="#000000" opacity="0.18"/>
+
+  <!-- barcode card (top-left) -->
+  <g transform="rotate(-6 125 145)">
+    <rect x="70" y="105" width="120" height="78" rx="12" fill="#ffffff" opacity="0.96"/>
+    <g fill="#0d1b3a">
+      <rect x="86" y="121" width="4" height="40"/><rect x="94" y="121" width="2" height="40"/>
+      <rect x="100" y="121" width="6" height="40"/><rect x="110" y="121" width="2" height="40"/>
+      <rect x="116" y="121" width="4" height="40"/><rect x="124" y="121" width="8" height="40"/>
+      <rect x="136" y="121" width="2" height="40"/><rect x="142" y="121" width="4" height="40"/>
+      <rect x="150" y="121" width="2" height="40"/><rect x="156" y="121" width="6" height="40"/>
+      <rect x="166" y="121" width="3" height="40"/>
+    </g>
+    <rect x="86" y="166" width="84" height="5" rx="2.5" fill="#90a4ae"/>
+  </g>
+
+  <!-- printed receipt (behind the terminal) -->
+  <g transform="rotate(-8 130 340)">
+    <path d="M70 250 H190 V420 l-12 12 l-12 -12 l-12 12 l-12 -12 l-12 12 l-12 -12 l-12 12 l-12 -12 l-12 12 l-12 -12 Z" fill="#ffffff"/>
+    <rect x="86" y="270" width="88" height="9" rx="4.5" fill="#0d1b3a"/>
+    <g fill="#b0bec5">
+      <rect x="86" y="294" width="70" height="6" rx="3"/><rect x="86" y="308" width="82" height="6" rx="3"/>
+      <rect x="86" y="322" width="60" height="6" rx="3"/><rect x="86" y="336" width="76" height="6" rx="3"/>
+    </g>
+    <rect x="86" y="356" width="88" height="2" fill="#cfd8dc"/>
+    <rect x="86" y="368" width="40" height="8" rx="4" fill="#0d1b3a"/>
+    <rect x="134" y="368" width="40" height="8" rx="4" fill="#1976d2"/>
+    <g fill="#0d1b3a" opacity="0.8">
+      <rect x="86" y="390" width="3" height="18"/><rect x="92" y="390" width="2" height="18"/>
+      <rect x="97" y="390" width="5" height="18"/><rect x="105" y="390" width="2" height="18"/>
+      <rect x="110" y="390" width="4" height="18"/><rect x="118" y="390" width="2" height="18"/>
+      <rect x="124" y="390" width="6" height="18"/><rect x="133" y="390" width="2" height="18"/>
+      <rect x="138" y="390" width="4" height="18"/><rect x="146" y="390" width="3" height="18"/>
+      <rect x="153" y="390" width="2" height="18"/><rect x="158" y="390" width="5" height="18"/>
+    </g>
+  </g>
+
+  <!-- terminal: stand, base, body -->
+  <rect x="362" y="468" width="76" height="62" rx="8" fill="#b0bec5"/>
+  <rect x="298" y="520" width="204" height="24" rx="12" fill="#eceff1"/>
+  <rect x="190" y="150" width="420" height="330" rx="30" fill="#ffffff"/>
+  <rect x="190" y="150" width="420" height="330" rx="30" fill="none" stroke="#cfd8dc" stroke-width="2"/>
+  <rect x="214" y="174" width="372" height="282" rx="18" fill="#0d1b3a"/>
+
+  <!-- screen: header -->
+  <rect x="214" y="174" width="372" height="46" rx="18" fill="#1976d2"/>
+  <rect x="214" y="202" width="372" height="18" fill="#1976d2"/>
+  <text x="236" y="204" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#ffffff">New Sale</text>
+  <rect x="504" y="190" width="62" height="18" rx="9" fill="#ffffff" opacity="0.22"/>
+  <circle cx="518" cy="199" r="4" fill="#69f0ae"/>
+
+  <!-- screen: line items -->
+  <g>
+    <rect x="232" y="236" width="34" height="34" rx="9" fill="#ffc107"/>
+    <rect x="278" y="240" width="138" height="8" rx="4" fill="#ffffff" opacity="0.88"/>
+    <rect x="278" y="256" width="88" height="7" rx="3.5" fill="#ffffff" opacity="0.38"/>
+    <rect x="500" y="244" width="68" height="10" rx="5" fill="#ffffff" opacity="0.88"/>
+
+    <rect x="232" y="278" width="34" height="34" rx="9" fill="#26c6da"/>
+    <rect x="278" y="282" width="118" height="8" rx="4" fill="#ffffff" opacity="0.88"/>
+    <rect x="278" y="298" width="96" height="7" rx="3.5" fill="#ffffff" opacity="0.38"/>
+    <rect x="510" y="286" width="58" height="10" rx="5" fill="#ffffff" opacity="0.88"/>
+
+    <rect x="232" y="320" width="34" height="34" rx="9" fill="#ef5350"/>
+    <rect x="278" y="324" width="150" height="8" rx="4" fill="#ffffff" opacity="0.88"/>
+    <rect x="278" y="340" width="70" height="7" rx="3.5" fill="#ffffff" opacity="0.38"/>
+    <rect x="504" y="328" width="64" height="10" rx="5" fill="#ffffff" opacity="0.88"/>
+  </g>
+
+  <!-- screen: totals + pay -->
+  <rect x="232" y="366" width="336" height="1.5" fill="#ffffff" opacity="0.2"/>
+  <text x="232" y="392" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#ffffff" opacity="0.6" letter-spacing="2">TOTAL</text>
+  <rect x="456" y="376" width="112" height="22" rx="7" fill="#ffffff"/>
+  <rect x="232" y="408" width="336" height="36" rx="12" fill="#00c853"/>
+  <text x="400" y="432" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="800" fill="#ffffff" letter-spacing="3">PAY</text>
+
+  <!-- card reader -->
+  <g transform="translate(588 316) rotate(8)">
+    <rect x="0" y="0" width="124" height="196" rx="20" fill="#263238"/>
+    <rect x="0" y="0" width="124" height="196" rx="20" fill="none" stroke="#455a64" stroke-width="2"/>
+    <rect x="14" y="16" width="96" height="56" rx="9" fill="#80deea"/>
+    <g fill="none" stroke="#006064" stroke-width="3.5" stroke-linecap="round">
+      <path d="M48 44 a14 14 0 0 1 0 0.1"/>
+      <path d="M58 34 a14 14 0 0 1 0 20"/>
+      <path d="M67 28 a22 22 0 0 1 0 32"/>
+      <path d="M76 22 a30 30 0 0 1 0 44"/>
+    </g>
+    <g fill="#546e7a">
+      <circle cx="32" cy="102" r="8"/><circle cx="62" cy="102" r="8"/><circle cx="92" cy="102" r="8"/>
+      <circle cx="32" cy="130" r="8"/><circle cx="62" cy="130" r="8"/><circle cx="92" cy="130" r="8"/>
+      <circle cx="32" cy="158" r="8"/><circle cx="62" cy="158" r="8"/>
+    </g>
+    <circle cx="92" cy="158" r="8" fill="#00c853"/>
+  </g>
+
+  <!-- shopping basket (front-left) -->
+  <path d="M104 470 C104 410 202 410 202 470" fill="none" stroke="#ffa000" stroke-width="9" stroke-linecap="round"/>
+  <circle cx="118" cy="466" r="19" fill="#ef5350"/>
+  <path d="M118 448 c0 -8 6 -12 12 -12" fill="none" stroke="#2e7d32" stroke-width="4" stroke-linecap="round"/>
+  <rect x="146" y="430" width="38" height="46" rx="7" fill="#66bb6a"/>
+  <rect x="152" y="440" width="26" height="8" rx="4" fill="#ffffff" opacity="0.7"/>
+  <rect x="194" y="418" width="20" height="60" rx="8" fill="#26c6da"/>
+  <rect x="198" y="410" width="12" height="12" rx="3" fill="#00838f"/>
+  <path d="M72 482 H236 L218 568 H90 Z" fill="#ffb300"/>
+  <g stroke="#ff8f00" stroke-width="3" stroke-linecap="round" opacity="0.7">
+    <path d="M112 492 L118 560"/><path d="M154 492 V560"/><path d="M196 492 L190 560"/>
+  </g>
+  <rect x="62" y="470" width="184" height="18" rx="9" fill="#ffa000"/>
+
+  <!-- price tag (top-right) -->
+  <g transform="rotate(10 645 112)">
+    <rect x="590" y="80" width="112" height="64" rx="15" fill="#ffc107"/>
+    <circle cx="610" cy="100" r="6" fill="#1565c0"/>
+    <text x="656" y="124" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="800" fill="#0d1b3a">SALE</text>
+  </g>
+
+  <!-- coin stack (bottom-right) -->
+  <g stroke="#ff8f00" stroke-width="2.5">
+    <ellipse cx="690" cy="552" rx="34" ry="11" fill="#ffca28"/>
+    <ellipse cx="690" cy="540" rx="34" ry="11" fill="#ffca28"/>
+    <ellipse cx="690" cy="528" rx="34" ry="11" fill="#ffca28"/>
+    <ellipse cx="690" cy="516" rx="34" ry="11" fill="#ffd54f"/>
+  </g>
+  <ellipse cx="690" cy="516" rx="18" ry="5.5" fill="none" stroke="#ff8f00" stroke-width="2"/>
+
+  <!-- sparkles -->
+  <g fill="#ffffff" opacity="0.85">
+    <path d="M300 96 l5 14 14 5 -14 5 -5 14 -5 -14 -14 -5 14 -5 z"/>
+    <path d="M520 70 l3.5 10 10 3.5 -10 3.5 -3.5 10 -3.5 -10 -10 -3.5 10 -3.5 z" opacity="0.7"/>
+    <path d="M742 300 l3.5 10 10 3.5 -10 3.5 -3.5 10 -3.5 -10 -10 -3.5 10 -3.5 z" opacity="0.7"/>
+    <circle cx="48" cy="360" r="5" opacity="0.5"/><circle cx="760" cy="440" r="4" opacity="0.5"/>
+  </g>
+</svg>

@@ -1,0 +1,40 @@
+<app-page-header title="Inventory Transactions" subtitle="Append-only stock ledger."></app-page-header>
+
+<form [formGroup]="filterForm" (ngSubmit)="applyFilters()" class="filter-bar">
+  <mat-form-field appearance="outline">
+    <mat-label>Store</mat-label>
+    <mat-select formControlName="storeId">
+      <mat-option value="">Any</mat-option>
+      <mat-option *ngFor="let store of stores()" [value]="store.id">{{ store.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Product Id</mat-label>
+    <input matInput formControlName="productId" type="number" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Type</mat-label>
+    <mat-select formControlName="type">
+      <mat-option value="">Any</mat-option>
+      <mat-option *ngFor="let type of transactionTypes" [value]="type">{{ type }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-flat-button color="primary" type="submit">Search</button>
+  <button mat-button type="button" (click)="resetFilters()">Reset</button>
+</form>
+
+<app-data-table
+  [columns]="columns"
+  [data]="transactions()"
+  [totalElements]="totalElements()"
+  [pageIndex]="pageIndex"
+  [pageSize]="pageSize"
+  [loading]="loading()"
+  [showEdit]="false"
+  [showActiveToggle]="false"
+  emptyMessage="No inventory transactions found."
+  (page)="onPage($event)"
+></app-data-table>

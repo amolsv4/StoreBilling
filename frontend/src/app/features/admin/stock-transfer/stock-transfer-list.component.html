@@ -1,0 +1,42 @@
+<app-page-header title="Stock Transfers" subtitle="Move stock between stores.">
+  <button mat-flat-button color="primary" *ngIf="authService.hasPermission('TRANSFER_CREATE')" (click)="openCreate()">
+    <mat-icon>add</mat-icon>
+    New Transfer
+  </button>
+</app-page-header>
+
+<form [formGroup]="filterForm" (ngSubmit)="applyFilters()" class="filter-bar">
+  <mat-form-field appearance="outline">
+    <mat-label>Store (either side)</mat-label>
+    <mat-select formControlName="storeId">
+      <mat-option value="">Any</mat-option>
+      <mat-option *ngFor="let store of stores()" [value]="store.id">{{ store.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Status</mat-label>
+    <mat-select formControlName="status">
+      <mat-option value="">Any</mat-option>
+      <mat-option value="DRAFT">DRAFT</mat-option>
+      <mat-option value="COMPLETED">COMPLETED</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-flat-button color="primary" type="submit">Search</button>
+  <button mat-button type="button" (click)="resetFilters()">Reset</button>
+</form>
+
+<app-data-table
+  [columns]="columns"
+  [data]="transfers()"
+  [totalElements]="totalElements()"
+  [pageIndex]="pageIndex"
+  [pageSize]="pageSize"
+  [loading]="loading()"
+  [showActiveToggle]="false"
+  editLabel="Open"
+  emptyMessage="No stock transfers found."
+  (page)="onPage($event)"
+  (edit)="openDetail($event)"
+></app-data-table>

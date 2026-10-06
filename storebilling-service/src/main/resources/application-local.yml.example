@@ -1,0 +1,25 @@
+# Committed TEMPLATE only - contains no real values.
+#
+# Copy this file to "application-local.yml" (already gitignored) if you prefer file-based
+# configuration over exporting shell environment variables. Spring Boot automatically loads
+# application-local.yml when the "local" profile is active (which it is, by default - see
+# application.yml). After copying, replace the ${...} placeholders below with your own local
+# values, OR simply leave them as-is and continue exporting the same-named environment variables -
+# either way works since these are still just placeholders here.
+#
+# Never commit a copy of this file containing real secrets.
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/storebilling
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration-ms: ${JWT_EXPIRATION_MS:1800000}
+
+# Note: BOOTSTRAP_ADMIN_USERNAME / BOOTSTRAP_ADMIN_PASSWORD (read by
+# user.runner.SuperAdminBootstrapRunner via @Value("${BOOTSTRAP_ADMIN_USERNAME:}") with an
+# empty-string default) are plain OS environment variables, not Spring config keys, so they
+# deliberately do NOT need an entry here - export them in your shell instead.

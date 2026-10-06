@@ -1,0 +1,102 @@
+<app-page-header
+  title="Stock Transfer"
+  [subtitle]="isCreateMode() ? 'Create a new stock transfer, then add lines.' : (transfer()?.transferNumber ?? 'Loading...')"
+></app-page-header>
+
+<mat-card class="st-card" *ngIf="isCreateMode()">
+  <form [formGroup]="headerForm" (ngSubmit)="createHeader()" class="form-grid">
+    <mat-form-field appearance="outline">
+      <mat-label>From Store</mat-label>
+      <mat-select formControlName="fromStoreId">
+        <mat-option *ngFor="let store of stores()" [value]="store.id">{{ store.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>To Store</mat-label>
+      <mat-select formControlName="toStoreId">
+        <mat-option *ngFor="let store of stores()" [value]="store.id">{{ store.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Transfer Date</mat-label>
+      <input matInput type="date" formControlName="transferDate" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Transfer Number</mat-label>
+      <input matInput formControlName="transferNumber" maxlength="30" />
+    </mat-form-field>
+
+    <div class="full-span">
+      <button mat-flat-button color="primary" type="submit" [disabled]="submitting()">Create Transfer</button>
+    </div>
+  </form>
+</mat-card>
+
+<div *ngIf="!isCreateMode()">
+  <ng-container *ngIf="transfer() as t">
+    <mat-card class="st-card">
+      <div class="st-status-row">
+        <span class="st-status-badge">{{ t.status }}</span>
+        <span>{{ t.fromStoreName }} &rarr; {{ t.toStoreName }}</span>
+      </div>
+
+      <form [formGroup]="headerForm" (ngSubmit)="saveHeader()" class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>From Store</mat-label>
+          <mat-select formControlName="fromStoreId">
+            <mat-option *ngFor="let store of stores()" [value]="store.id">{{ store.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>To Store</mat-label>
+          <mat-select formControlName="toStoreId">
+            <mat-option *ngFor="let store of stores()" [value]="store.id">{{ store.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Transfer Date</mat-label>
+          <input matInput type="date" formControlName="transferDate" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Transfer Number</mat-label>
+          <input matInput formControlName="transferNumber" maxlength="30" />
+        </mat-form-field>
+
+        <div class="full-span" *ngIf="t.status === 'DRAFT' && authService.hasPermission('TRANSFER_UPDATE')">
+          <button mat-stroked-button type="submit" [disabled]="submitting()">Save Header</button>
+        </div>
+      </form>
+    </mat-card>
+
+    <mat-card class="st-card">
+      <h2>Lines</h2>
+      <app-product-search
+        *ngIf="canAddLine()"
+        [organizationId]="organizationId()"
+        (productSelected)="addLine($event)"
+      ></app-product-search>
+
+      <app-line-items-editor
+        [columns]="lineColumns()"
+        [rows]="t.lines"
+        [disabled]="linesDisabled()"
+        emptyMessage="No lines added yet."
+        (cellChange)="onCellChange($event)"
+        (remove)="removeLine($event)"
+      ></app-line-items-editor>
+
+      <div class="st-actions" *ngIf="t.status === 'DRAFT' && authService.hasPermission('TRANSFER_COMPLETE')">
+        <button mat-flat-button color="primary" [disabled]="busy() || t.lines.length === 0" (click)="complete()">
+          <mat-icon>swap_horiz</mat-icon>
+          Complete Transfer
+        </button>
+      </div>
+    </mat-card>
+  </ng-container>
+</div>

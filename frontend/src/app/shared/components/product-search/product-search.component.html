@@ -1,0 +1,19 @@
+<mat-form-field appearance="outline" class="product-search-field">
+  <mat-label>{{ label }}</mat-label>
+  <mat-icon matPrefix>qr_code_scanner</mat-icon>
+  <mat-icon matSuffix *ngIf="searching()">hourglass_empty</mat-icon>
+  <input
+    matInput
+    type="text"
+    [formControl]="searchControl"
+    [matAutocomplete]="auto"
+    [placeholder]="placeholder"
+    [disabled]="disabled"
+    (keydown.enter)="onEnter($event)"
+  />
+  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayProduct" (optionSelected)="onOptionSelected($event)">
+    <mat-option *ngFor="let product of options()" [value]="product">
+      {{ product.sku }} - {{ product.name }}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

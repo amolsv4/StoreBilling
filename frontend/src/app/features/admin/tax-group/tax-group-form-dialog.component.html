@@ -1,0 +1,51 @@
+<h2 mat-dialog-title>{{ isEdit ? 'Edit Tax Group' : 'Add Tax Group' }}</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <mat-dialog-content class="form-grid">
+    <mat-form-field appearance="outline">
+      <mat-label>Organization</mat-label>
+      <mat-select formControlName="organizationId">
+        <mat-option *ngFor="let org of organizations()" [value]="org.id">{{ org.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Code</mat-label>
+      <input matInput formControlName="code" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-span">
+      <mat-label>Description</mat-label>
+      <input matInput formControlName="description" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-span">
+      <mat-label>Tax Components</mat-label>
+      <mat-select formControlName="componentIds" multiple>
+        <mat-option *ngFor="let component of taxComponentOptions()" [value]="component.id">
+          {{ component.name }} ({{ component.percentage }}%)
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="full-span" *ngIf="isEdit">Total: {{ totalPercentage }}%</div>
+
+    <div class="toggle-row" *ngIf="isEdit">
+      <mat-slide-toggle formControlName="inclusive">Prices include tax (tax-inclusive)</mat-slide-toggle>
+    </div>
+
+    <div class="toggle-row" *ngIf="isEdit">
+      <mat-slide-toggle formControlName="active">Active</mat-slide-toggle>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="cancel()">Cancel</button>
+    <button mat-flat-button color="primary" type="submit" [disabled]="submitting()">Save</button>
+  </mat-dialog-actions>
+</form>

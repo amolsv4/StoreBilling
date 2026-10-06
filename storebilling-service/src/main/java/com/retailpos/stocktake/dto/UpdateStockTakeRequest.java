@@ -1,0 +1,14 @@
+package com.retailpos.stocktake.dto;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
+import java.time.LocalDate;
+
+/** No {@code status} field - status only ever changes via the dedicated {@code /complete} action. */
+public record UpdateStockTakeRequest(
+        @NotBlank @Size(max = 30) String stockTakeNumber,
+        @NotNull LocalDate stockTakeDate
+) {
+}

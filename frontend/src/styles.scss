@@ -1,0 +1,58 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Shared layout helpers reused across the admin create/edit dialogs (Organization, Store, Terminal,
+   User, Role, Configuration) so each dialog form doesn't need to redeclare the same grid/toggle CSS. */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 16px;
+  min-width: 320px;
+}
+
+.form-grid mat-form-field {
+  width: 100%;
+}
+
+.form-grid .full-span {
+  grid-column: 1 / -1;
+}
+
+.toggle-row {
+  grid-column: 1 / -1;
+  padding: 8px 0;
+}
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.filter-bar mat-form-field {
+  min-width: 180px;
+}
+
+.resolve-result-card {
+  margin-top: 16px;
+}
+
+.resolve-result-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.inline-error {
+  background: #fdecea;
+  color: #b71c1c;
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}

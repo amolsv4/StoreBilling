@@ -1,0 +1,16 @@
+<app-page-header title="Held Bills" subtitle="Resume a sale that was put on hold at this terminal."></app-page-header>
+
+<app-data-table
+  [columns]="columns"
+  [data]="bills()"
+  [totalElements]="totalElements()"
+  [pageIndex]="pageIndex"
+  [pageSize]="pageSize"
+  [loading]="loading()"
+  [showActiveToggle]="false"
+  editIcon="play_circle"
+  editLabel="Resume"
+  emptyMessage="No held bills for this terminal."
+  (page)="onPage($event)"
+  (edit)="resume($event)"
+></app-data-table>

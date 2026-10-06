@@ -1,0 +1,72 @@
+<div class="pos-sale-grid">
+  <div class="pos-sale-main">
+    <mat-card class="pos-sale-search-card">
+      <app-customer-search
+        [organizationId]="organizationId()"
+        [disabled]="sale() !== null"
+        [selectedCustomerName]="selectedCustomer()?.name ?? null"
+        (customerSelected)="onCustomerSelected($event)"
+      ></app-customer-search>
+      <p class="pos-sale-hint" *ngIf="sale() !== null">
+        Customer can't be changed once the sale has started (add a fresh sale to switch customers).
+      </p>
+
+      <app-product-search
+        [organizationId]="organizationId()"
+        (productSelected)="addProduct($event)"
+      ></app-product-search>
+    </mat-card>
+
+    <mat-card class="pos-sale-cart-card">
+      <h2>Cart</h2>
+      <app-line-items-editor
+        [columns]="cartColumns()"
+        [rows]="sale()?.lines ?? []"
+        emptyMessage="Scan or search for a product to start this sale."
+        (cellChange)="onCartCellChange($event)"
+        (remove)="onRemoveLine($event)"
+      ></app-line-items-editor>
+    </mat-card>
+  </div>
+
+  <mat-card class="pos-sale-summary-card" *ngIf="sale() as s">
+    <h2>Summary</h2>
+    <div class="pos-summary-row">
+      <span>Subtotal</span>
+      <span>{{ s.subtotal | currency: s.currency }}</span>
+    </div>
+    <div class="pos-summary-row">
+      <span>Discount</span>
+      <span>{{ s.discountAmount | currency: s.currency }}</span>
+    </div>
+    <div class="pos-summary-row">
+      <span>Tax</span>
+      <span>{{ s.taxAmount | currency: s.currency }}</span>
+    </div>
+    <div class="pos-summary-row pos-summary-total">
+      <span>Total</span>
+      <span>{{ s.totalAmount | currency: s.currency }}</span>
+    </div>
+
+    <mat-form-field appearance="outline" class="pos-discount-field">
+      <mat-label>Bill discount</mat-label>
+      <input matInput type="number" min="0" step="0.01" [(ngModel)]="billDiscountInput" />
+    </mat-form-field>
+    <button mat-stroked-button (click)="applyBillDiscount()" [disabled]="busy()">Apply Discount</button>
+
+    <div class="pos-summary-actions">
+      <button mat-stroked-button (click)="holdSale()" [disabled]="busy()">
+        <mat-icon>pause_circle</mat-icon>
+        Hold
+      </button>
+      <button mat-flat-button color="primary" (click)="checkout()" [disabled]="busy() || s.lines.length === 0">
+        <mat-icon>payments</mat-icon>
+        Checkout
+      </button>
+    </div>
+  </mat-card>
+
+  <mat-card class="pos-sale-summary-card" *ngIf="!sale()">
+    <p class="pos-sale-hint">Add the first item to start a new sale.</p>
+  </mat-card>
+</div>

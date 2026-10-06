@@ -1,0 +1,38 @@
+.stk-card {
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.stk-status-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.stk-status-badge {
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  padding: 2px 10px;
+  font-size: 12px;
+}
+
+.stk-actions {
+  margin-top: 16px;
+}
+
+.stk-add-line {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.stk-counted-field {
+  width: 200px;
+}
+
+.stk-product-search {
+  flex: 1 1 320px;
+}

@@ -1,0 +1,50 @@
+.pos-sale-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 16px;
+  align-items: start;
+}
+
+.pos-sale-main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.pos-sale-search-card,
+.pos-sale-cart-card,
+.pos-sale-summary-card {
+  padding: 16px;
+}
+
+.pos-sale-hint {
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.6);
+  margin: 4px 0 8px;
+}
+
+.pos-summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.pos-summary-total {
+  font-weight: 600;
+  font-size: 18px;
+  border-bottom: none;
+}
+
+.pos-discount-field {
+  width: 100%;
+  margin-top: 12px;
+}
+
+.pos-summary-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}

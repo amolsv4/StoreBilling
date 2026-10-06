@@ -1,0 +1,23 @@
+.pr-card {
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.pr-status-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.pr-status-badge {
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  padding: 2px 10px;
+  font-size: 12px;
+}
+
+.pr-actions {
+  margin-top: 16px;
+}

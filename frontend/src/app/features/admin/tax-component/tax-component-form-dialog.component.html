@@ -1,0 +1,43 @@
+<h2 mat-dialog-title>{{ isEdit ? 'Edit Tax Component' : 'Add Tax Component' }}</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <mat-dialog-content class="form-grid">
+    <mat-form-field appearance="outline">
+      <mat-label>Organization</mat-label>
+      <mat-select formControlName="organizationId">
+        <mat-option *ngFor="let org of organizations()" [value]="org.id">{{ org.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Tax Type</mat-label>
+      <mat-select formControlName="taxType">
+        <mat-option *ngFor="let type of taxTypes" [value]="type">{{ type }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Code</mat-label>
+      <input matInput formControlName="code" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Percentage (%)</mat-label>
+      <input matInput type="number" min="0" max="100" formControlName="percentage" />
+    </mat-form-field>
+
+    <div class="toggle-row" *ngIf="isEdit">
+      <mat-slide-toggle formControlName="active">Active</mat-slide-toggle>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="cancel()">Cancel</button>
+    <button mat-flat-button color="primary" type="submit" [disabled]="submitting()">Save</button>
+  </mat-dialog-actions>
+</form>

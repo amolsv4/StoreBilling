@@ -1,0 +1,62 @@
+<p>
+  Pick a configuration key plus optional context (organization / business type / store / terminal)
+  and see exactly what value the engine resolves to and which scope it was resolved from.
+</p>
+
+<form [formGroup]="form" (ngSubmit)="resolve()" class="filter-bar">
+  <mat-form-field appearance="outline">
+    <mat-label>Config Key</mat-label>
+    <input matInput formControlName="key" placeholder="e.g. receipt.footer" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Organization</mat-label>
+    <mat-select formControlName="organizationId">
+      <mat-option [value]="null">None</mat-option>
+      <mat-option *ngFor="let org of organizations()" [value]="org.id">{{ org.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Business Type</mat-label>
+    <mat-select formControlName="businessTypeId">
+      <mat-option [value]="null">None</mat-option>
+      <mat-option *ngFor="let type of businessTypes()" [value]="type.id">{{ type.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Store</mat-label>
+    <mat-select formControlName="storeId">
+      <mat-option [value]="null">None</mat-option>
+      <mat-option *ngFor="let store of stores()" [value]="store.id">{{ store.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Terminal</mat-label>
+    <mat-select formControlName="terminalId">
+      <mat-option [value]="null">None</mat-option>
+      <mat-option *ngFor="let terminal of terminals()" [value]="terminal.id">{{ terminal.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-flat-button color="primary" type="submit" [disabled]="submitting()">Resolve</button>
+</form>
+
+<div *ngIf="errorMessage()" class="inline-error">{{ errorMessage() }}</div>
+
+<mat-card *ngIf="result() as resolved" class="resolve-result-card">
+  <mat-card-header>
+    <mat-card-title>Resolved value</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="resolve-result-row"><strong>Key</strong><span>{{ resolved.configKey }}</span></div>
+    <div class="resolve-result-row"><strong>Value</strong><span>{{ resolved.value }}</span></div>
+    <div class="resolve-result-row"><strong>Data Type</strong><span>{{ resolved.dataType }}</span></div>
+    <div class="resolve-result-row">
+      <strong>Resolved From</strong>
+      <span>{{ resolved.resolvedScopeType }}<ng-container *ngIf="resolved.resolvedScopeId != null"> #{{ resolved.resolvedScopeId }}</ng-container></span>
+    </div>
+  </mat-card-content>
+</mat-card>
